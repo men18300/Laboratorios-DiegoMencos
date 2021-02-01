@@ -60,10 +60,19 @@ void carrera(void);
 //*****************************************************************************
 
 void main(void) {
+
     setup();
     delay(500);
     while (1) {
         if (EMP == 1) {
+            
+            PORTB = 0b00000000;
+            PORTA = 0b00000000;
+            PORTDbits.RD3=0;
+            PORTDbits.RD4=0;
+            jugador1=0;
+            jugador2=0;
+            ganador = 0;
             ROJO = 1;
             delay(6000);
             ROJO = 0;
@@ -79,17 +88,15 @@ void main(void) {
                     conteo = jugador1;
                     led = 1;
                     carrera();
-                    delay (5000);
+                    delay(4000);
 
                 }
                 if (JUG2 == 1) {
                     ++jugador2;
                     conteo = jugador2;
                     carrera();
-                    delay(5000);
+                    delay(4000);
                 }
-                
-
 
             }
 
@@ -139,88 +146,87 @@ void delay(unsigned char n) {
 
 void carrera(void) {
 
-    if (conteo ==1) {
+    if (conteo == 1) {
         if (led == 1) {
             PORTAbits.RA0 = 1;
-            led=0;
+            led = 0;
         } else {
             PORTBbits.RB0 = 1;
         }
     }
-    if (conteo ==2) {
+    if (conteo == 2) {
         if (led == 1) {
             PORTA = 0b00000010;
-            led=0;
+            led = 0;
         } else {
             PORTB = 0b00000010;
         }
     }
-    if (conteo ==3) {
+    if (conteo == 3) {
         if (led == 1) {
             PORTA = 0b00000100;
-            led=0;
+            led = 0;
         } else {
             PORTB = 0b00000100;
         }
     }
-    if (conteo ==4) {
+    if (conteo == 4) {
         if (led == 1) {
             PORTA = 0b00001000;
-            led=0;
+            led = 0;
         } else {
             PORTB = 0b00001000;
         }
     }
-    if (conteo ==5) {
+    if (conteo == 5) {
 
         if (led == 1) {
             PORTA = 0b00010000;
-            led=0;
+            led = 0;
         } else {
             PORTB = 0b00010000;
         }
     }
-    if (conteo== 6) {
+    if (conteo == 6) {
 
         if (led == 1) {
             PORTA = 0b00100000;
-            led=0;
+            led = 0;
         } else {
-            PORTB= 0b00100000;
+            PORTB = 0b00100000;
         }
     }
-    if (conteo ==7) {
+    if (conteo == 7) {
         if (led == 1) {
             PORTA = 0b01000000;
-            led=0;
+            led = 0;
         } else {
             PORTB = 0b01000000;
         }
     }
-    if (conteo ==8) {
+    if (conteo == 8) {
         if (led == 1) {
             PORTA = 0b10000000;
-            led=0;
-            ganador=1;
+            led = 0;
+            ganador = 1;
             delay(5000);
-            PORTDbits.RD3=1;
+            PORTDbits.RD3 = 1;
             delay(8000);
-            PORTDbits.RD3=0;
-            PORTB= 0b00000000;
-            PORTA= 0b00000000;
+            PORTDbits.RD3 = 0;
+            PORTB = 0b00000000;
+            PORTA = 0b00000000;
             
+
         } else {
-            PORTB= 0b10000000;
-            ganador=1;
+            PORTB = 0b10000000;
+            ganador = 1;
             delay(5000);
-            PORTDbits.RD4=1;
+            PORTDbits.RD4 = 1;
             delay(8000);
-            PORTDbits.RD3=0;
-            PORTB= 0b00000000;
-            PORTA= 0b00000000;
+            PORTDbits.RD4 = 0;
+            PORTB = 0b00000000;
+            PORTA = 0b00000000;
+            
         }
     }
-
-
-
 }
