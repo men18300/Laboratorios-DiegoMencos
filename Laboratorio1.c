@@ -10,6 +10,7 @@
 //******************************************************************************
 //Librerías
 //******************************************************************************
+#include <stdio.h>
 #include <xc.h>
 
 
@@ -41,7 +42,11 @@
 #define EMP PORTCbits.RC0
 #define JUG1 PORTCbits.RC1
 #define JUG2 PORTCbits.RC2
-
+int ganador;
+int jugador1;
+int jugador2;
+int conteo;
+int led;
 
 
 //*****************************************************************************
@@ -49,25 +54,44 @@
 //****************************************************************************
 void setup(void);
 void delay(unsigned char n);
+void carrera(void);
 //*****************************************************************************
 //Ciclo Principal
 //*****************************************************************************
 
 void main(void) {
     setup();
-    delay (500);
+    delay(500);
     while (1) {
         if (EMP == 1) {
             ROJO = 1;
-            delay (6000);
-            ROJO=0;
-            AMARILLO=1;
-            delay (6000);
-            AMARILLO=0;
-            VERDE=1;
             delay(6000);
-            VERDE=0;
-                        
+            ROJO = 0;
+            AMARILLO = 1;
+            delay(6000);
+            AMARILLO = 0;
+            VERDE = 1;
+            delay(6000);
+            VERDE = 0;
+            while (ganador != 1) {
+                if (JUG1 == 1) {
+                    ++jugador1;
+                    conteo = jugador1;
+                    led = 1;
+                    carrera();
+                    delay (5000);
+
+                }
+                if (JUG2 == 1) {
+                    ++jugador2;
+                    conteo = jugador2;
+                    carrera();
+                    delay(5000);
+                }
+
+
+            }
+
         } else {
             PORTDbits.RD0 = 0;
         }
@@ -94,7 +118,11 @@ void setup(void) {
     PORTB = 0;
     PORTD = 0;
     PORTD = 0;
-
+    ganador = 0;
+    jugador1 = 0;
+    jugador2 = 0;
+    conteo = 0;
+    led = 0;
 
 
 
@@ -106,4 +134,92 @@ void delay(unsigned char n) {
         for (int j = 0; j < 255; j++) {
         }
     }
+}
+
+void carrera(void) {
+
+    if (conteo ==1) {
+        if (led == 1) {
+            PORTAbits.RA0 = 1;
+            led=0;
+        } else {
+            PORTBbits.RB0 = 1;
+        }
+    }
+    if (conteo ==2) {
+        if (led == 1) {
+            PORTA = 0b00000010;
+            led=0;
+
+        } else {
+            PORTB = 0b00000010;
+        }
+    }
+    if (conteo ==3) {
+
+        if (led == 1) {
+            PORTA = 0b00000100;
+            led=0;
+
+        } else {
+            PORTB = 0b00000100;
+        }
+
+    }
+    if (conteo ==4) {
+        if (led == 1) {
+            PORTA = 0b00001000;
+            led=0;
+
+        } else {
+            PORTB = 0b00001000;
+        }
+
+    }
+    if (conteo ==5) {
+
+        if (led == 1) {
+            PORTA = 0b00010000;
+            led=0;
+
+        } else {
+            PORTB = 0b00010000;
+
+        }
+    }
+    if (conteo== 6) {
+
+        if (led == 1) {
+            PORTA = 0b00100000;
+            led=0;
+
+        } else {
+            PORTB= 0b00100000;
+        }
+    }
+    if (conteo ==7) {
+        if (led == 1) {
+            PORTA = 0b01000000;
+            led=0;
+
+        } else {
+            PORTB = 0b01000000;
+
+        }
+    }
+    if (conteo ==8) {
+        if (led == 1) {
+            PORTA = 0b10000000;
+            led=0;
+            ganador=1;
+
+        } else {
+            PORTB= 0b10000000;
+            ganador=1;
+
+        }
+    }
+
+
+
 }
